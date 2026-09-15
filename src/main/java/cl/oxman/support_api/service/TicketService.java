@@ -4,6 +4,7 @@ import cl.oxman.support_api.dto.CreateTicketRequest;
 import cl.oxman.support_api.dto.TicketResponse;
 import cl.oxman.support_api.entity.EstadoTicket;
 import cl.oxman.support_api.entity.Ticket;
+import cl.oxman.support_api.exception.TicketNotFoundException;
 import cl.oxman.support_api.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class TicketService implements ITicketService {
 
     @Override
     public TicketResponse buscarPorId(Long id) {
-        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(()-> new TicketNotFoundException(id));
         return convertirResponse(ticket);
 
     }
