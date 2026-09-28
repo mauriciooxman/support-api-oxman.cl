@@ -3,6 +3,7 @@ package cl.oxman.support_api.controller;
 
 import cl.oxman.support_api.dto.CreateTicketRequest;
 import cl.oxman.support_api.dto.TicketResponse;
+import cl.oxman.support_api.dto.UpdateTicketRequest;
 import cl.oxman.support_api.entity.Ticket;
 import cl.oxman.support_api.service.TicketService;
 import jakarta.validation.Valid;
@@ -33,5 +34,16 @@ public class TicketController {
     @GetMapping("/{id}")
     public TicketResponse buscarPorId(@PathVariable Long id){
         return ticketService.buscarPorId(id);
+    }
+
+    @PutMapping("/{id}")
+    public TicketResponse editar(@PathVariable Long id, @Valid @RequestBody UpdateTicketRequest request){
+    return ticketService.actualizar(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id){
+        ticketService.eliminar(id);
     }
 }
